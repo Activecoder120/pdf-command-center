@@ -1,26 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Shell } from "@/components/layout/Shell";
+import { Hero } from "@/components/home/Hero";
+import { CommandCenter } from "@/components/home/CommandCenter";
+import { Features } from "@/components/home/Features";
+import { CTA } from "@/components/home/CTA";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "PDFBuddy — Document Workflows, Reimagined" },
+      { name: "description", content: "Cinematic PDF tools, AI document assistant, and workflows built for speed." },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <Shell>
+      <Hero />
+      <CommandCenter />
+      <Features />
+      <CTA />
+    </Shell>
+  );
 }
