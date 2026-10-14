@@ -4,6 +4,7 @@ export default defineConfig({
   testDir: "./tests/e2e",
   outputDir: "test-results/e2e",
   fullyParallel: false,
+  reporter: process.env.CI ? [["github"], ["line"]] : "list",
   workers: 1,
   timeout: 60000,
   use: {
