@@ -1,55 +1,69 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { UploadCloud, FileUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import { MAX_UPLOAD_BYTES } from "@/lib/upload";
 
-export function UploadZone() {
+export function UploadZone({
+  onFiles,
+  multiple = false,
+  images = false,
+  disabled = false,
+}: {
+  onFiles: (files: File[]) => Promise<void>;
+  multiple?: boolean;
+  images?: boolean;
+  disabled?: boolean;
+}) {
   const [dragging, setDragging] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  disabled = disabled || !ready;
+  const input = useRef<HTMLInputElement>(null);
   return (
     <div
-      onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
-      onDragLeave={() => setDragging(false)}
-      onDrop={(e) => {
-        e.preventDefault();
-        setDragging(false);
-        const f = e.dataTransfer.files?.[0];
-        if (f) { setFile(f); toast.success(`${f.name} ready to process`); }
+      onDragOver={(event) => {
+        event.preventDefault();
+        if (!disabled) setDragging(true);
       }}
-      className={`relative overflow-hidden rounded-3xl border-2 border-dashed p-12 text-center transition-all ${
-        dragging ? "border-primary bg-primary/5" : "border-white/10 bg-white/[0.02]"
-      }`}
+      onDragLeave={() => setDragging(false)}
+      onDrop={(event) => {
+        event.preventDefault();
+        setDragging(false);
+        if (!disabled) void onFiles(Array.from(event.dataTransfer.files));
+      }}
+      className={`relative rounded-3xl border-2 border-dashed p-8 text-center transition-colors ${dragging ? "border-primary bg-primary/5" : "border-border bg-card/40"}`}
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-primary opacity-[0.06]" />
-      <motion.div
-        animate={{ y: dragging ? -6 : 0 }}
-        className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-gradient-primary text-white shadow-[0_20px_60px_-20px_var(--primary)]"
-      >
-        <UploadCloud className="h-7 w-7" />
-      </motion.div>
-      <h3 className="mt-5 font-display text-2xl font-semibold">
-        {file ? file.name : "Drop your file here"}
-      </h3>
-      <p className="mt-1.5 text-sm text-muted-foreground">
-        or click below to select. PDF, DOCX, JPG up to 100MB.
+      <UploadCloud className="mx-auto h-10 w-10 text-primary" aria-hidden="true" />
+      <h2 className="mt-3 font-display text-2xl font-semibold">
+        Drop {multiple ? "files" : "a PDF"} here
+      </h2>
+      <p className="mt-2 text-sm text-muted-foreground">
+        {images ? "PNG or JPG" : "PDF"} · {MAX_UPLOAD_BYTES / 1024 / 1024} MB per file · processed
+        in your browser
       </p>
-      <div className="mt-6">
-        <Button asChild className="bg-gradient-primary border-0 text-white hover:opacity-95">
-          <label className="cursor-pointer">
-            <FileUp className="mr-2 h-4 w-4" /> Select file
-            <input
-              type="file"
-              className="hidden"
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                if (f) { setFile(f); toast.success(`${f.name} ready to process`); }
-              }}
-            />
-          </label>
-        </Button>
-      </div>
+      <Button
+        type="button"
+        disabled={disabled}
+        onClick={() => input.current?.click()}
+        className="mt-5"
+      >
+        <FileUp aria-hidden="true" /> Select {multiple ? "files" : "file"}
+      </Button>
+      <input
+        ref={input}
+        type="file"
+        aria-label={images ? "Upload images" : "Upload PDFs"}
+        className="sr-only"
+        tabIndex={-1}
+        accept={images ? "image/png,image/jpeg,.png,.jpg,.jpeg" : "application/pdf,.pdf"}
+        multiple={multiple}
+        disabled={disabled}
+        onChange={(event) => {
+          const files = Array.from(event.target.files ?? []);
+          event.target.value = "";
+          if (files.length) void onFiles(files);
+        }}
+      />
     </div>
   );
 }

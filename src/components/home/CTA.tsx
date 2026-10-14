@@ -21,7 +21,11 @@ export function CTA() {
             </Button>
           </Link>
           <Link to="/contact">
-            <Button size="lg" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white/10 bg-white/5 hover:bg-white/10"
+            >
               Talk to sales
             </Button>
           </Link>

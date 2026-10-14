@@ -11,9 +11,15 @@ function Dashboard() {
   return (
     <Shell>
       <section className="mx-auto max-w-6xl px-6 py-12">
+        <p role="status" className="mb-5 text-sm text-muted-foreground">
+          Dashboard preview: names, metrics and activity below are sample data. No documents are
+          stored.
+        </p>
         <div className="flex items-end justify-between">
           <div>
-            <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Workspace</div>
+            <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              Workspace
+            </div>
             <h1 className="mt-2 font-display text-4xl font-semibold">Good evening, Alex.</h1>
           </div>
         </div>
@@ -34,9 +40,16 @@ function Dashboard() {
         </div>
 
         <div className="mt-10 rounded-2xl glass-strong ring-soft">
-          <div className="border-b border-border/60 p-5 font-display text-lg font-semibold">Recent activity</div>
+          <div className="border-b border-border/60 p-5 font-display text-lg font-semibold">
+            Recent activity
+          </div>
           <ul className="divide-y divide-border/60">
-            {["Merged 3 PDFs · invoice-set.pdf", "Compressed report.pdf (-78%)", "AI summary · whitepaper.pdf", "PDF → Word · contract.docx"].map((t, i) => (
+            {[
+              "Merged 3 PDFs · invoice-set.pdf",
+              "Compressed report.pdf (-78%)",
+              "AI summary · whitepaper.pdf",
+              "PDF → Word · contract.docx",
+            ].map((t, i) => (
               <li key={i} className="flex items-center justify-between p-5 text-sm">
                 <span className="text-foreground/90">{t}</span>
                 <span className="text-xs text-muted-foreground">{i + 1}h ago</span>

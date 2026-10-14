@@ -1,6 +1,12 @@
 import logo from "@/assets/pdfbuddy-logo.jpeg";
 
-export function Logo({ withText = true, className = "" }: { withText?: boolean; className?: string }) {
+export function Logo({
+  withText = true,
+  className = "",
+}: {
+  withText?: boolean;
+  className?: string;
+}) {
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
       <div className="relative h-9 w-9 overflow-hidden rounded-xl ring-1 ring-white/10">

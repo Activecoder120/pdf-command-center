@@ -1,10 +1,26 @@
 import { Shield, Cpu, Workflow, Sparkles } from "lucide-react";
 
 const ITEMS = [
-  { icon: Cpu, title: "Edge-fast processing", desc: "Every job runs on optimized edge workers. No waiting, no spinners." },
-  { icon: Shield, title: "Private by default", desc: "Files are encrypted in transit and auto‑deleted after processing." },
-  { icon: Workflow, title: "Built for workflows", desc: "Chain tools together. Batch process. Automate with webhooks." },
-  { icon: Sparkles, title: "AI document copilot", desc: "Summarize, extract, translate and answer questions across docs." },
+  {
+    icon: Cpu,
+    title: "Local processing",
+    desc: "Run PDF tools in your browser with progress, cancellation and downloads.",
+  },
+  {
+    icon: Shield,
+    title: "Private by default",
+    desc: "Files stay in your browser. Clear files to release temporary data.",
+  },
+  {
+    icon: Workflow,
+    title: "Batch PDF tools",
+    desc: "Merge ordered files, split page ranges, and edit PDF pages.",
+  },
+  {
+    icon: Sparkles,
+    title: "AI preview",
+    desc: "AI integrations are planned. The assistant page currently shows sample data.",
+  },
 ];
 
 export function Features() {

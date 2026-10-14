@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Shell } from "@/components/layout/Shell";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/faq")({
   component: FAQ,
@@ -8,11 +13,23 @@ export const Route = createFileRoute("/faq")({
 });
 
 const Q = [
-  { q: "Is PDFBuddy free?", a: "Yes — the core tools are free forever. Upgrade to Pro for unlimited processing and AI." },
-  { q: "Are my files private?", a: "Files are encrypted in transit and deleted automatically within one hour of processing." },
-  { q: "What file size can I upload?", a: "Free users up to 100MB, Pro up to 1GB per file." },
+  {
+    q: "Is PDFBuddy free?",
+    a: "The browser PDF tools do not require an account or payment. Paid plans and AI are previews, not active services.",
+  },
+  {
+    q: "Are my files private?",
+    a: "Files and PDF passwords stay in your browser. Clear files, change tools, or close the page to release temporary data. Saved downloads remain on your device.",
+  },
+  {
+    q: "What file size can I upload?",
+    a: "The default limit is 50 MB per file, with 100 MB combined and 30 files per job. Manipulation and rendering support up to 300 pages. The maintainer can configure the per-file limit.",
+  },
   { q: "Do you watermark output?", a: "Never. Your documents stay yours." },
-  { q: "Can I automate workflows?", a: "Yes — Pro and Team plans include webhook automation via n8n integration." },
+  {
+    q: "Can I automate workflows?",
+    a: "No automation endpoints or webhooks are implemented. The current tools run locally in your browser.",
+  },
 ];
 
 function FAQ() {
@@ -24,7 +41,9 @@ function FAQ() {
         <Accordion type="single" collapsible className="mt-10 rounded-2xl glass p-2">
           {Q.map((item, i) => (
             <AccordionItem key={i} value={`i${i}`} className="border-border/60 px-4">
-              <AccordionTrigger className="text-left font-display text-base">{item.q}</AccordionTrigger>
+              <AccordionTrigger className="text-left font-display text-base">
+                {item.q}
+              </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">{item.a}</AccordionContent>
             </AccordionItem>
           ))}

@@ -43,13 +43,37 @@ export function Footer() {
         </div>
         {COLS.map((c) => (
           <div key={c.title}>
-            <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{c.title}</div>
+            <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              {c.title}
+            </div>
             <ul className="mt-4 space-y-2.5">
               {c.links.map((l) => (
                 <li key={l.to}>
-                  <Link to={l.to} className="text-sm text-foreground/80 hover:text-foreground">
-                    {l.label}
-                  </Link>
+                  {l.to.startsWith("/tools/") ? (
+                    <Link
+                      to="/tools/$slug"
+                      params={{ slug: l.to.slice(7) }}
+                      className="text-sm text-foreground/80 hover:text-foreground"
+                    >
+                      {l.label}
+                    </Link>
+                  ) : (
+                    <Link
+                      to={
+                        l.to as
+                          | "/pricing"
+                          | "/ai"
+                          | "/dashboard"
+                          | "/contact"
+                          | "/faq"
+                          | "/privacy"
+                          | "/terms"
+                      }
+                      className="text-sm text-foreground/80 hover:text-foreground"
+                    >
+                      {l.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

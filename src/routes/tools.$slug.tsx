@@ -1,8 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ToolPage } from "@/components/tools/ToolPage";
 import { TOOLS } from "@/lib/tools";
 
 export const Route = createFileRoute("/tools/$slug")({
+  beforeLoad: ({ params }) => {
+    if (!TOOLS.some((tool) => tool.slug === params.slug)) throw notFound();
+  },
   component: ToolRoute,
   head: ({ params }) => {
     const tool = TOOLS.find((t) => t.slug === params.slug);

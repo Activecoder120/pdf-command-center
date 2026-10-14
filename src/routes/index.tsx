@@ -10,7 +10,10 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "PDFBuddy — Document Workflows, Reimagined" },
-      { name: "description", content: "Cinematic PDF tools, AI document assistant, and workflows built for speed." },
+      {
+        name: "description",
+        content: "Cinematic PDF tools, AI document assistant, and workflows built for speed.",
+      },
     ],
   }),
 });

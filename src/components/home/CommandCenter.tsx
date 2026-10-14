@@ -16,7 +16,8 @@ export function CommandCenter() {
           </h2>
         </div>
         <p className="max-w-md text-sm text-muted-foreground">
-          A modular surface of tools designed like an operating system for documents — magnetic, fast, and beautifully consistent.
+          A modular surface of tools designed like an operating system for documents — magnetic,
+          fast, and beautifully consistent.
         </p>
       </div>
 
@@ -34,14 +35,18 @@ export function CommandCenter() {
               params={{ slug: tool.slug }}
               className="group relative block h-full overflow-hidden rounded-2xl glass p-5 transition-all hover:-translate-y-1 hover:bg-white/[0.07]"
             >
-              <div className={`mb-4 inline-grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br ${accentClass[tool.accent]} text-white shadow-[0_10px_30px_-10px_var(--primary)]`}>
+              <div
+                className={`mb-4 inline-grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br ${accentClass[tool.accent]} text-white shadow-[0_10px_30px_-10px_var(--primary)]`}
+              >
                 <tool.icon className="h-5 w-5" />
               </div>
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-display text-base font-semibold">{tool.name}</h3>
                 <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
               </div>
-              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{tool.description}</p>
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                {tool.description}
+              </p>
               <div className="pointer-events-none absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
             </Link>
           </motion.div>

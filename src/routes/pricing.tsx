@@ -5,33 +5,57 @@ import { Check, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/pricing")({
   component: Pricing,
-  head: () => ({ meta: [{ title: "Pricing — PDFBuddy" }, { name: "description", content: "Simple pricing for teams of every size." }] }),
+  head: () => ({
+    meta: [
+      { title: "Pricing — PDFBuddy" },
+      { name: "description", content: "Simple pricing for teams of every size." },
+    ],
+  }),
 });
 
 const PLANS = [
   {
-    name: "Free", price: "$0", period: "forever",
+    name: "Free",
+    price: "$0",
+    period: "forever",
     desc: "For occasional document work.",
     features: ["Core PDF tools", "2 files / day", "100 MB max", "Standard speed"],
-    cta: "Start free", featured: false,
+    cta: "Start free",
+    featured: false,
   },
   {
-    name: "Pro", price: "$9", period: "/month",
+    name: "Pro",
+    price: "$9",
+    period: "/month",
     desc: "For professionals who live in PDFs.",
-    features: ["Unlimited processing", "Batch tools", "AI Assistant", "Priority queue", "1 GB files"],
-    cta: "Upgrade to Pro", featured: true,
+    features: [
+      "Unlimited processing",
+      "Batch tools",
+      "AI Assistant",
+      "Priority queue",
+      "1 GB files",
+    ],
+    cta: "Upgrade to Pro",
+    featured: true,
   },
   {
-    name: "Team", price: "$29", period: "/month",
+    name: "Team",
+    price: "$29",
+    period: "/month",
     desc: "Shared workflows for teams.",
     features: ["Everything in Pro", "Shared workspace", "Webhook automation", "SSO + audit logs"],
-    cta: "Start team trial", featured: false,
+    cta: "Start team trial",
+    featured: false,
   },
 ];
 
 function Pricing() {
   return (
     <Shell>
+      <p role="status" className="mx-auto max-w-6xl px-6 py-4 text-sm">
+        Pricing preview only. Billing, paid plans and account upgrades are not available. Browser
+        PDF tools need no payment.
+      </p>
       <section className="relative">
         <div className="absolute inset-0 -z-10 bg-hero" />
         <div className="mx-auto max-w-6xl px-6 py-16 text-center">
