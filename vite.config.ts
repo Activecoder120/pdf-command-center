@@ -1,15 +1,31 @@
-// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
-// or the app will break with duplicate plugins:
-//   - tanstackStart, viteReact, tailwindcss, tsConfigPaths, cloudflare (build-only),
-//     componentTagger (dev-only), VITE_* env injection, @ path alias, React/TanStack dedupe,
-//     error logger plugins, and sandbox detection (port/host/strictPort).
-// You can pass additional config via defineConfig({ vite: { ... } }) if needed.
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { defineConfig, type UserConfig } from "vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import { resolve } from "node:path";
 
-// Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-// @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
-export default defineConfig({
-  tanstackStart: {
-    server: { entry: "server" },
-  },
+export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
+  const pages = mode === "pages";
+  const base = pages ? "/pdf-command-center/" : "/";
+  if (command === "build" && !pages) process.env.WRANGLER_LOG_PATH ??= resolve(".wrangler/logs");
+  const cloudflare =
+    command === "build" && !pages
+      ? (await import("@cloudflare/vite-plugin")).cloudflare
+      : undefined;
+  return {
+    base,
+    plugins: [
+      ...(cloudflare ? [cloudflare({ viteEnvironment: { name: "ssr" } })] : []),
+      tanstackStart({
+        client: { entry: "client" },
+        server: { entry: "server" },
+        spa: pages ? { enabled: true, prerender: { outputPath: "/index" } } : undefined,
+      }),
+      react(),
+      tailwindcss(),
+    ],
+    server: { host: "127.0.0.1", port: 5173 },
+    resolve: { tsconfigPaths: true },
+    worker: { format: "es" },
+  };
 });

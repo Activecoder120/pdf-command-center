@@ -19,20 +19,32 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
             </span>
-            New · AI Document Assistant is live
+            Browser PDF tools · no account required
           </div>
           <h1 className="font-display text-5xl font-semibold tracking-tight md:text-7xl">
-            PDF Tools <span className="text-gradient">Reimagined</span><br /> for Speed
+            PDF Tools <span className="text-gradient">Reimagined</span>
+            <br /> for Speed
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground md:text-lg">
-            One‑click document workflows with lightning‑fast processing. Built for teams that move at the speed of thought.
+            One‑click document workflows with lightning‑fast processing. Built for teams that move
+            at the speed of thought.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button size="lg" className="bg-gradient-primary border-0 text-white shadow-[0_20px_60px_-20px_var(--primary)] hover:opacity-95">
-              <UploadCloud className="mr-2 h-4 w-4" /> Upload File
+            <Button
+              asChild
+              size="lg"
+              className="bg-gradient-primary border-0 text-white shadow-[0_20px_60px_-20px_var(--primary)] hover:opacity-95"
+            >
+              <Link to="/tools/$slug" params={{ slug: "merge" }}>
+                <UploadCloud className="mr-2 h-4 w-4" /> Upload File
+              </Link>
             </Button>
-            <Link to="/tools/merge">
-              <Button size="lg" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10">
+            <Link to="/tools/$slug" params={{ slug: "merge" }}>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white/10 bg-white/5 hover:bg-white/10"
+              >
                 Explore Tools <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -51,8 +63,12 @@ export function Hero() {
             <div className="rounded-2xl border border-white/5 bg-[oklch(0.18_0.04_270)] p-6 md:p-10">
               <div className="grid items-center gap-8 md:grid-cols-[1fr_1.1fr]">
                 <div>
-                  <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Live demo</div>
-                  <h3 className="mt-2 font-display text-2xl font-semibold">Drop a PDF — get magic.</h3>
+                  <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                    Example workflow
+                  </div>
+                  <h3 className="mt-2 font-display text-2xl font-semibold">
+                    Drop a PDF — get magic.
+                  </h3>
                   <p className="mt-2 text-sm text-muted-foreground">
                     Upload, process, and download in seconds. No watermarks. No wait.
                   </p>
@@ -68,7 +84,8 @@ export function Hero() {
                         </div>
                         <div className="flex-1">
                           <div className="mb-1 flex justify-between text-xs text-muted-foreground">
-                            <span>{s.label}</span><span>{s.val}%</span>
+                            <span>{s.label}</span>
+                            <span>{s.val}%</span>
                           </div>
                           <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
                             <motion.div
@@ -104,7 +121,11 @@ export function Hero() {
                         </div>
                         <div className="space-y-1.5">
                           {[90, 70, 80, 50, 65].map((w, j) => (
-                            <div key={j} className="h-1 rounded-full bg-white/10" style={{ width: `${w}%` }} />
+                            <div
+                              key={j}
+                              className="h-1 rounded-full bg-white/10"
+                              style={{ width: `${w}%` }}
+                            />
                           ))}
                         </div>
                         <div className="mt-auto h-12 rounded-md bg-gradient-primary opacity-30" />

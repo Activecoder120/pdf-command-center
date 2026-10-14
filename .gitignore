@@ -19,6 +19,9 @@ dist-ssr
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
+public/pdfjs/
+test-results/
+playwright-report/
 
 # Editor directories and files
 .vscode/*
