@@ -176,7 +176,8 @@ test("password protection and unlocking round-trip without logging passwords or 
 test("compression presets return valid PDFs, show sizes and preserve original if larger", async ({
   page,
 }) => {
-  await upload(page, "compress");
+  const original = await pdf();
+  await upload(page, "compress", original);
   const lossless = await download(page);
   expect((await PDFDocument.load(lossless.bytes)).getPageCount()).toBe(3);
   await expect(page.getByRole("region", { name: "Download results" })).toContainText("Before:");
@@ -184,7 +185,7 @@ test("compression presets return valid PDFs, show sizes and preserve original if
   await expect(page.getByText("Searchable text, links", { exact: false })).toBeVisible();
   const small = await download(page);
   expect((await PDFDocument.load(small.bytes)).getPageCount()).toBe(3);
-  expect(small.bytes.length).toBeLessThanOrEqual((await pdf()).length);
+  expect(small.bytes.length).toBeLessThanOrEqual(original.length);
 });
 
 for (const slug of ["watermark", "page-numbers"])
