@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export function CommandCenter() {
   return (
-    <section className="relative mx-auto max-w-6xl px-6 py-24">
+    <section id="tools" className="relative mx-auto max-w-6xl scroll-mt-28 px-6 py-24">
       <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
         <div>
           <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">

@@ -140,7 +140,8 @@ There is no server retention period because no document is uploaded.
 - Watermarks currently use a Latin-character font and a centered placement. Page numbers use the original page index.
 - Unlock an encrypted PDF before using manipulation/rendering tools. A correct password is required; forgotten passwords are not recovered.
 - Very large or unusual PDFs may exceed browser memory or rendering limits. Some embedded image formats depend on browser/PDF.js support.
-- PDF-to-Word, Word-to-PDF, AI, authentication, billing, dashboard metrics and contact delivery remain explicitly labeled previews; they are not implemented services.
+- Support requests validate locally only; there is no delivery endpoint. Pricing includes a dummy checkout with no real charges or subscriptions.
+- PDF-to-Word, Word-to-PDF, AI, authentication and dashboard metrics remain explicitly labeled previews; they are not implemented services.
 - Browser checks currently cover Chromium. Other browsers and assistive technologies need further testing.
 - Lint retains existing Fast Refresh warnings in shared UI component modules; they do not prevent builds.
 

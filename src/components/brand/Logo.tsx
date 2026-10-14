@@ -1,4 +1,4 @@
-import logo from "@/assets/pdfbuddy-logo.jpeg";
+const logo = `${import.meta.env.BASE_URL}logo/logo-icon.svg`;
 
 export function Logo({
   withText = true,
@@ -10,7 +10,7 @@ export function Logo({
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
       <div className="relative h-9 w-9 overflow-hidden rounded-xl ring-1 ring-white/10">
-        <img src={logo} alt="PDFBuddy" className="h-full w-full object-cover" />
+        <img src={logo} alt={withText ? "" : "PDFBuddy"} className="h-full w-full object-cover" />
       </div>
       {withText && (
         <div className="leading-none">

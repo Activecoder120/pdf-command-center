@@ -1,15 +1,16 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, UploadCloud, FileText, Sparkles, Zap } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 export function Hero() {
+  const reducedMotion = useReducedMotion();
   return (
     <section className="relative">
       <div className="absolute inset-0 -z-10 bg-hero" />
       <div className="mx-auto max-w-6xl px-6 pb-24 pt-16 md:pt-24">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={reducedMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto max-w-3xl text-center"
@@ -39,21 +40,26 @@ export function Hero() {
                 <UploadCloud className="mr-2 h-4 w-4" /> Upload File
               </Link>
             </Button>
-            <Link to="/tools/$slug" params={{ slug: "merge" }}>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/10 bg-white/5 hover:bg-white/10"
+            <Button asChild size="lg" variant="outline">
+              <a
+                href="#tools"
+                onClick={(event) => {
+                  event.preventDefault();
+                  document
+                    .getElementById("tools")
+                    ?.scrollIntoView({ behavior: reducedMotion ? "instant" : "smooth" });
+                  window.history.replaceState(null, "", "#tools");
+                }}
               >
                 Explore Tools <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+              </a>
+            </Button>
           </div>
         </motion.div>
 
         {/* Cinematic upload demo */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={reducedMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="relative mx-auto mt-16 max-w-4xl"
@@ -89,10 +95,10 @@ export function Hero() {
                           </div>
                           <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
                             <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${s.val}%` }}
+                              initial={reducedMotion ? false : { scaleX: 0 }}
+                              animate={{ scaleX: s.val / 100 }}
                               transition={{ duration: 1.4, delay: 0.2 * i, ease: "easeOut" }}
-                              className="h-full bg-gradient-primary"
+                              className="h-full origin-left bg-gradient-primary"
                             />
                           </div>
                         </div>
@@ -107,15 +113,15 @@ export function Hero() {
                     { x: "45%", y: "0%", delay: 0.2, rot: 4 },
                     { x: "30%", y: "40%", delay: 0.4, rot: -2 },
                   ].map((p, i) => (
-                    <motion.div
+                    <div
                       key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.3 + p.delay }}
-                      style={{ left: p.x, top: p.y, rotate: `${p.rot}deg` }}
-                      className="absolute h-44 w-32 animate-float rounded-xl glass-strong p-3 ring-soft"
+                      style={{ left: p.x, top: p.y, transform: `rotate(${p.rot}deg)` }}
+                      className="absolute h-44 w-32"
                     >
-                      <div className="flex h-full flex-col">
+                      <div
+                        style={{ animationDelay: `${p.delay}s` }}
+                        className="flex h-full flex-col animate-float rounded-xl glass-strong p-3 ring-soft"
+                      >
                         <div className="mb-2 inline-flex w-fit items-center gap-1 rounded bg-primary/20 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-primary">
                           <FileText className="h-2.5 w-2.5" /> PDF
                         </div>
@@ -130,7 +136,7 @@ export function Hero() {
                         </div>
                         <div className="mt-auto h-12 rounded-md bg-gradient-primary opacity-30" />
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>

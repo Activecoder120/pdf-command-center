@@ -14,6 +14,7 @@ for (const route of [
   "faq",
   "login",
   "pricing",
+  "support",
   "privacy",
   "terms",
 ]) {

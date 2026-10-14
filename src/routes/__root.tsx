@@ -68,10 +68,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "PDFBuddy — Document Workflows, Reimagined" },
       { property: "og:description", content: "Lightning-fast PDF tools and AI for modern teams." },
       { property: "og:type", content: "website" },
+      {
+        property: "og:image",
+        content: `https://activecoder120.github.io/pdf-command-center/logo/og-image.png`,
+      },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "apple-touch-icon", href: `${import.meta.env.BASE_URL}logo/apple-touch-icon.png` },
       { rel: "icon", type: "image/svg+xml", href: `${import.meta.env.BASE_URL}favicon.svg` },
     ],
   }),

@@ -218,6 +218,7 @@
 }
 .animate-float {
   animation: float-y 6s ease-in-out infinite;
+  will-change: transform;
 }
 .animate-pulse-glow {
   animation: pulse-glow 3.2s ease-in-out infinite;

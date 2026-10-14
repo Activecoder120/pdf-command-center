@@ -23,6 +23,7 @@ const COLS = [
   {
     title: "Company",
     links: [
+      { to: "/support", label: "Support" },
       { to: "/contact", label: "Contact" },
       { to: "/faq", label: "FAQ" },
       { to: "/privacy", label: "Privacy" },
@@ -64,6 +65,7 @@ export function Footer() {
                           | "/pricing"
                           | "/ai"
                           | "/dashboard"
+                          | "/support"
                           | "/contact"
                           | "/faq"
                           | "/privacy"

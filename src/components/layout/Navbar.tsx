@@ -41,6 +41,16 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <Link to="/pricing" className="rounded-lg px-2 py-1.5 text-sm hover:bg-accent">
+              Pricing
+            </Link>
+            <Link
+              to="/support"
+              className="rounded-lg px-2 py-1.5 text-sm hover:bg-accent"
+              onClick={() => setOpen(false)}
+            >
+              Support
+            </Link>
           </nav>
           <div className="flex items-center gap-2">
             <ThemeSelect />
@@ -83,6 +93,16 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <Link to="/pricing" className="rounded-lg px-2 py-1.5 text-sm hover:bg-accent">
+              Pricing
+            </Link>
+            <Link
+              to="/support"
+              className="rounded-lg px-2 py-1.5 text-sm hover:bg-accent"
+              onClick={() => setOpen(false)}
+            >
+              Support
+            </Link>
           </nav>
         )}
       </div>
