@@ -54,11 +54,30 @@ test("new pages fit mobile themes and hero respects reduced motion", async ({ pa
       ).toBe(true);
     }
   }
-  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
-  const duration = await page
-    .locator(".animate-float")
-    .first()
-    .evaluate((element) => getComputedStyle(element).animationDuration);
-  expect(parseFloat(duration)).toBeLessThan(0.001);
+  const cards = page.locator(".animate-float");
+  await expect(cards).toHaveCount(3);
+  expect(
+    await cards.evaluateAll((elements) =>
+      elements.map((element) => {
+        const style = getComputedStyle(element);
+        return {
+          name: style.animationName,
+          duration: style.animationDuration,
+          delay: style.animationDelay,
+        };
+      }),
+    ),
+  ).toEqual([
+    { name: "float-y", duration: "6s", delay: "0s" },
+    { name: "float-y", duration: "6s", delay: "0.2s" },
+    { name: "float-y", duration: "6s", delay: "0.4s" },
+  ]);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const card of await cards.all()) {
+    await expect(card).toHaveCSS("animation-name", "none");
+    await expect(card).toHaveCSS("transform", "none");
+    expect(await card.evaluate((element) => element.getAnimations().length)).toBe(0);
+  }
 });

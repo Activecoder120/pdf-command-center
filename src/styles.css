@@ -113,7 +113,7 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
+    animation: none !important;
     transition-duration: 0.01ms !important;
   }
 }
@@ -219,6 +219,7 @@
 .animate-float {
   animation: float-y 6s ease-in-out infinite;
   will-change: transform;
+  backface-visibility: hidden;
 }
 .animate-pulse-glow {
   animation: pulse-glow 3.2s ease-in-out infinite;
