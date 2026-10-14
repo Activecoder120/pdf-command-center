@@ -57,27 +57,25 @@ test("new pages fit mobile themes and hero cards stay static", async ({ page }) 
   for (const reducedMotion of ["no-preference", "reduce"] as const) {
     await page.emulateMedia({ reducedMotion });
     await page.goto("/");
-    const cards = page.getByTestId("hero-pdf-cards").locator(":scope > div > div");
-    await expect(cards).toHaveCount(3);
-    for (const card of await cards.all()) {
-      await expect(card).toHaveCSS("animation-name", "none");
-      await expect(card).toHaveCSS("transform", "none");
-      expect(await card.evaluate((element) => element.getAnimations().length)).toBe(0);
-    }
-    const before = await cards.evaluateAll((elements) =>
-      elements.map((element) => {
-        const { x, y, width, height } = element.getBoundingClientRect();
-        return { x, y, width, height };
-      }),
-    );
-    await page.waitForTimeout(250);
+    const illustration = page.getByTestId("hero-pdf-cards").getByRole("img");
+    await expect(illustration).toBeVisible();
+    await expect(illustration).toHaveAttribute("src", /hero-pdf-cards\.svg$/);
     expect(
-      await cards.evaluateAll((elements) =>
-        elements.map((element) => {
-          const { x, y, width, height } = element.getBoundingClientRect();
-          return { x, y, width, height };
-        }),
+      await illustration.evaluate(
+        (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
       ),
-    ).toEqual(before);
+    ).toBe(true);
+    expect(
+      await illustration.evaluate((element) => {
+        for (let node: Element | null = element; node; node = node.parentElement) {
+          const style = getComputedStyle(node);
+          if (node.getAnimations().length || style.backdropFilter !== "none") return false;
+        }
+        return true;
+      }),
+    ).toBe(true);
+    const before = await illustration.screenshot();
+    await page.waitForTimeout(500);
+    expect(await illustration.screenshot()).toEqual(before);
   }
 });

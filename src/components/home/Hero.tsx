@@ -1,6 +1,6 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, UploadCloud, FileText, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, UploadCloud, Sparkles, Zap } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 export function Hero() {
@@ -9,15 +9,10 @@ export function Hero() {
     <section className="relative">
       <div className="absolute inset-0 -z-10 bg-hero" />
       <div className="mx-auto max-w-6xl px-6 pb-24 pt-16 md:pt-24">
-        <motion.div
-          initial={reducedMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-3xl text-center"
-        >
+        <div className="mx-auto max-w-3xl text-center">
           <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-xs text-muted-foreground">
             <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+              <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
             </span>
             Browser PDF tools · no account required
@@ -55,12 +50,12 @@ export function Hero() {
               </a>
             </Button>
           </div>
-        </motion.div>
+        </div>
 
         {/* Cinematic upload demo */}
         <div className="relative mx-auto mt-16 max-w-4xl">
           <div className="absolute -inset-x-12 -inset-y-8 -z-10 rounded-[2.5rem] bg-gradient-primary opacity-20 blur-3xl" />
-          <div className="glass-strong ring-soft rounded-3xl p-2">
+          <div className="hero-preview-panel ring-soft rounded-3xl p-2">
             <div className="rounded-2xl border border-white/5 bg-[oklch(0.18_0.04_270)] p-6 md:p-10">
               <div className="grid items-center gap-8 md:grid-cols-[1fr_1.1fr]">
                 <div>
@@ -78,8 +73,8 @@ export function Hero() {
                       { icon: UploadCloud, label: "Uploading report.pdf", val: 100 },
                       { icon: Zap, label: "Optimizing structure", val: 82 },
                       { icon: Sparkles, label: "Ready to download", val: 100 },
-                    ].map((s, i) => (
-                      <div key={i} className="flex items-center gap-3">
+                    ].map((s) => (
+                      <div key={s.label} className="flex items-center gap-3">
                         <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/5 text-primary">
                           <s.icon className="h-4 w-4" />
                         </div>
@@ -89,10 +84,8 @@ export function Hero() {
                             <span>{s.val}%</span>
                           </div>
                           <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
-                            <motion.div
-                              initial={reducedMotion ? false : { scaleX: 0 }}
-                              animate={{ scaleX: s.val / 100 }}
-                              transition={{ duration: 1.4, delay: 0.2 * i, ease: "easeOut" }}
+                            <div
+                              style={{ width: `${s.val}%` }}
                               className="h-full origin-left bg-gradient-primary"
                             />
                           </div>
@@ -103,33 +96,13 @@ export function Hero() {
                 </div>
 
                 <div data-testid="hero-pdf-cards" className="relative h-72">
-                  {[
-                    { x: "10%", y: "10%", rot: -8 },
-                    { x: "45%", y: "0%", rot: 4 },
-                    { x: "30%", y: "40%", rot: -2 },
-                  ].map((p, i) => (
-                    <div
-                      key={i}
-                      style={{ left: p.x, top: p.y, transform: `rotate(${p.rot}deg)` }}
-                      className="absolute h-44 w-32"
-                    >
-                      <div className="flex h-full flex-col rounded-xl glass-strong p-3 ring-soft">
-                        <div className="mb-2 inline-flex w-fit items-center gap-1 rounded bg-primary/20 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-primary">
-                          <FileText className="h-2.5 w-2.5" /> PDF
-                        </div>
-                        <div className="space-y-1.5">
-                          {[90, 70, 80, 50, 65].map((w, j) => (
-                            <div
-                              key={j}
-                              className="h-1 rounded-full bg-white/10"
-                              style={{ width: `${w}%` }}
-                            />
-                          ))}
-                        </div>
-                        <div className="mt-auto h-12 rounded-md bg-gradient-primary opacity-30" />
-                      </div>
-                    </div>
-                  ))}
+                  <img
+                    src={`${import.meta.env.BASE_URL}hero-pdf-cards.svg`}
+                    alt="Three overlapping PDF document previews"
+                    width="460"
+                    height="288"
+                    className="h-full w-full object-contain"
+                  />
                 </div>
               </div>
             </div>

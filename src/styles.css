@@ -171,6 +171,10 @@
     -webkit-backdrop-filter: blur(28px) saturate(160%);
     border: 1px solid color-mix(in oklab, white 8%, transparent);
   }
+  .hero-preview-panel {
+    background: color-mix(in oklab, var(--surface) 70%, transparent);
+    border: 1px solid color-mix(in oklab, white 8%, transparent);
+  }
   .grid-bg {
     background-image:
       linear-gradient(to right, color-mix(in oklab, white 4%, transparent) 1px, transparent 1px),
