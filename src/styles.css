@@ -190,15 +190,6 @@
   }
 }
 
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-14px);
-  }
-}
 @keyframes pulse-glow {
   0%,
   100% {
@@ -215,11 +206,6 @@
   100% {
     background-position: 200% 0;
   }
-}
-.animate-float {
-  animation: float-y 6s ease-in-out infinite;
-  will-change: transform;
-  backface-visibility: hidden;
 }
 .animate-pulse-glow {
   animation: pulse-glow 3.2s ease-in-out infinite;

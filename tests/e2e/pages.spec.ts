@@ -36,7 +36,7 @@ test("dummy checkout rejects invalid card and clears fields while processing", a
   await expect(page.getByText("Demo payment successful")).toBeVisible();
   await expect(page.getByText(/Fake order ID: DEMO-/)).toBeVisible();
 });
-test("new pages fit mobile themes and hero respects reduced motion", async ({ page }) => {
+test("new pages fit mobile themes and hero cards stay static", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   for (const route of ["/support", "/pricing"]) {
     await page.goto(route);
@@ -54,30 +54,30 @@ test("new pages fit mobile themes and hero respects reduced motion", async ({ pa
       ).toBe(true);
     }
   }
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/");
-  const cards = page.locator(".animate-float");
-  await expect(cards).toHaveCount(3);
-  expect(
-    await cards.evaluateAll((elements) =>
+  for (const reducedMotion of ["no-preference", "reduce"] as const) {
+    await page.emulateMedia({ reducedMotion });
+    await page.goto("/");
+    const cards = page.getByTestId("hero-pdf-cards").locator(":scope > div > div");
+    await expect(cards).toHaveCount(3);
+    for (const card of await cards.all()) {
+      await expect(card).toHaveCSS("animation-name", "none");
+      await expect(card).toHaveCSS("transform", "none");
+      expect(await card.evaluate((element) => element.getAnimations().length)).toBe(0);
+    }
+    const before = await cards.evaluateAll((elements) =>
       elements.map((element) => {
-        const style = getComputedStyle(element);
-        return {
-          name: style.animationName,
-          duration: style.animationDuration,
-          delay: style.animationDelay,
-        };
+        const { x, y, width, height } = element.getBoundingClientRect();
+        return { x, y, width, height };
       }),
-    ),
-  ).toEqual([
-    { name: "float-y", duration: "6s", delay: "0s" },
-    { name: "float-y", duration: "6s", delay: "0.2s" },
-    { name: "float-y", duration: "6s", delay: "0.4s" },
-  ]);
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  for (const card of await cards.all()) {
-    await expect(card).toHaveCSS("animation-name", "none");
-    await expect(card).toHaveCSS("transform", "none");
-    expect(await card.evaluate((element) => element.getAnimations().length)).toBe(0);
+    );
+    await page.waitForTimeout(250);
+    expect(
+      await cards.evaluateAll((elements) =>
+        elements.map((element) => {
+          const { x, y, width, height } = element.getBoundingClientRect();
+          return { x, y, width, height };
+        }),
+      ),
+    ).toEqual(before);
   }
 });

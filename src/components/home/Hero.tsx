@@ -58,12 +58,7 @@ export function Hero() {
         </motion.div>
 
         {/* Cinematic upload demo */}
-        <motion.div
-          initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto mt-16 max-w-4xl"
-        >
+        <div className="relative mx-auto mt-16 max-w-4xl">
           <div className="absolute -inset-x-12 -inset-y-8 -z-10 rounded-[2.5rem] bg-gradient-primary opacity-20 blur-3xl" />
           <div className="glass-strong ring-soft rounded-3xl p-2">
             <div className="rounded-2xl border border-white/5 bg-[oklch(0.18_0.04_270)] p-6 md:p-10">
@@ -107,21 +102,18 @@ export function Hero() {
                   </div>
                 </div>
 
-                <div className="relative h-72">
+                <div data-testid="hero-pdf-cards" className="relative h-72">
                   {[
-                    { x: "10%", y: "10%", delay: 0, rot: -8 },
-                    { x: "45%", y: "0%", delay: 0.2, rot: 4 },
-                    { x: "30%", y: "40%", delay: 0.4, rot: -2 },
+                    { x: "10%", y: "10%", rot: -8 },
+                    { x: "45%", y: "0%", rot: 4 },
+                    { x: "30%", y: "40%", rot: -2 },
                   ].map((p, i) => (
                     <div
                       key={i}
                       style={{ left: p.x, top: p.y, transform: `rotate(${p.rot}deg)` }}
                       className="absolute h-44 w-32"
                     >
-                      <div
-                        style={{ animationDelay: `${p.delay}s` }}
-                        className="flex h-full flex-col animate-float rounded-xl glass-strong p-3 ring-soft"
-                      >
+                      <div className="flex h-full flex-col rounded-xl glass-strong p-3 ring-soft">
                         <div className="mb-2 inline-flex w-fit items-center gap-1 rounded bg-primary/20 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-primary">
                           <FileText className="h-2.5 w-2.5" /> PDF
                         </div>
@@ -142,7 +134,7 @@ export function Hero() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
